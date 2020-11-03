@@ -1,16 +1,4 @@
 <?php
-/**
- *  (c) 2019 ИП Рагозин Денис Николаевич. Все права защищены.
- *
- *  Настоящий файл является частью программного продукта, разработанного ИП Рагозиным Денисом Николаевичем
- *  (ОГРНИП 315668300000095, ИНН 660902635476).
- *
- *  Алгоритм и исходные коды программного кода программного продукта являются коммерческой тайной
- *  ИП Рагозина Денис Николаевича. Любое их использование без согласия ИП Рагозина Денис Николаевича рассматривается,
- *  как нарушение его авторских прав.
- *   Ответственность за нарушение авторских прав наступает в соответствии с действующим законодательством РФ.
- */
-
 namespace Accurateweb\ImagingBundle\Primitive;
 
 class Size
@@ -23,59 +11,7 @@ class Size
     $this->setWidth($width);
     $this->setHeight($height);
   }
-  
-  /**
-   * Создает размер из строки/числа, означающего высоту.
-   * Ширина вычисляется так, чтобы были сохранены пропорции.
-   *
-   * @param string|integer $height высота
-   * @param Size $initialSize - изначальный размер изображения
-   * @return $this - Размер
-   * @throws \InvalidArgumentException
-   */
-  static public function fromHeight($height, $initialSize)
-  {
-    if(!is_string($height) && !is_int($height))
-    {
-      throw new \InvalidArgumentException(sprintf('Invalid parameter height, expected string or int, received "%s"', gettype($height)));
-    }
-    
-    if(!$initialSize instanceof Size)
-    {
-      throw new \InvalidArgumentException(sprintf('Invalid parameter initialSize, expected Size, received "%s"', gettype($initialSize)));
-    }
-    
-    $newWidth = $initialSize->getWidth() / ($initialSize->getHeight()/$height);
-    
-    return new Size((int)$newWidth, $height);
-  }
-  
-  /**
-   * Создает размер из строки/числа, означающего ширину.
-   * Высота вычисляется так, чтобы были сохранены пропорции.
-   *
-   * @param string|integer $width высота
-   * @param array $initialSize - изначальный размер изображения
-   * @return $this - Размер
-   * @throws \InvalidArgumentException
-   */
-  static public function fromWidth($width, $initialSize)
-  {
-    if(!is_string($width) && !is_int($width))
-    {
-      throw new \InvalidArgumentException(sprintf('Invalid parameter width, expected string or int, received "%s"', gettype($width)));
-    }
-  
-    if(!$initialSize instanceof Size)
-    {
-      throw new \InvalidArgumentException(sprintf('Invalid parameter initialSize, expected Size, received "%s"', gettype($initialSize)));
-    }
-    
-    $newHeight = $initialSize->getHeight() / ($initialSize->getWidth()/(int)$width);
-    
-    return new Size($width, (int)$newHeight);
-  }
-  
+
   /**
    * Создает размер из строки вида %ширина%<разделитель>%высота%.
    *
@@ -100,7 +36,7 @@ class Size
 
     if (!is_numeric($parts[0]) && !is_numeric($parts[1]))
       throw new \InvalidArgumentException(sprintf('Size components must be valid numbers'));
-    
+
     return new Size($parts[0], $parts[1]);
   }
 
