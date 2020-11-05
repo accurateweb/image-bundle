@@ -4,5 +4,8 @@
     "psr-4": {
       "Accurateweb\\ImagingBundle\\": ""
     }
+  },
+  "extra": {
+    "branch-version": "2.x"
   }
 }
