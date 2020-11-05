@@ -5,7 +5,11 @@
     <services>
         <service id="aw_imaging.adapter.gd" class="Accurateweb\ImagingBundle\Adapter\GdImageAdapter">
         </service>
+        <service id="aw_imaging.adapter.imagick" class="Accurateweb\ImagingBundle\Adapter\ImagickAdapter">
+        </service>
         <service id="aw_imaging.filter.factory.gd" class="Accurateweb\ImagingBundle\Filter\GdFilterFactory">
+        </service>
+        <service id="aw_imaging.filter.factory.imagick" class="Accurateweb\ImagingBundle\Filter\ImagickFilterFactory">
         </service>
     </services>
 </container>

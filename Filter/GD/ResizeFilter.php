@@ -1,5 +1,17 @@
 <?php
 /**
+ *  (c) 2019 ИП Рагозин Денис Николаевич. Все права защищены.
+ *
+ *  Настоящий файл является частью программного продукта, разработанного ИП Рагозиным Денисом Николаевичем
+ *  (ОГРНИП 315668300000095, ИНН 660902635476).
+ *
+ *  Алгоритм и исходные коды программного кода программного продукта являются коммерческой тайной
+ *  ИП Рагозина Денис Николаевича. Любое их использование без согласия ИП Рагозина Денис Николаевича рассматривается,
+ *  как нарушение его авторских прав.
+ *   Ответственность за нарушение авторских прав наступает в соответствии с действующим законодательством РФ.
+ */
+
+/**
  * @author Denis N. Ragozin <dragozin@accurateweb.ru>
  */
 
@@ -14,7 +26,7 @@ class ResizeFilter extends GdFilter
 {
   private $options;
 
-  public function __construct(array $options = array())
+  public function __construct (array $options = array())
   {
     $resolver = new OptionsResolver();
 
@@ -23,17 +35,18 @@ class ResizeFilter extends GdFilter
     $this->options = $resolver->resolve($options);
   }
 
-  public function process(Image $image)
+  public function process (Image $image)
   {
     $resource = $image->getResource();
 
     $src_size = new Size($image->getWidth(), $image->getHeight());
     $dst_size = Size::fromString($this->options["size"]);
-
     $keepAspectRatio = $dst_size->getWidth() == 0 || $dst_size->getHeight() == 0;
+
     if ($keepAspectRatio)
     {
       $ratio = $src_size->getAspectRatio();
+
       if ($ratio !== false)
       {
         if ($dst_size->getWidth() == 0)
@@ -67,14 +80,14 @@ class ResizeFilter extends GdFilter
     $dest_resource = $this->createTransparentImage($image, $width, $height);
 
     // Preserving transparency for alpha PNGs
-    if($image->getMIMEType() == 'image/png')
+    if ($image->getMIMEType() == 'image/png')
     {
       imagealphablending($dest_resource, false);
       imagesavealpha($dest_resource, true);
     }
 
     // Finally do our resizing
-    imagecopyresampled($dest_resource,$resource,0, 0, 0, 0, $width, $height,$x, $y);
+    imagecopyresampled($dest_resource, $resource, 0, 0, 0, 0, $width, $height, $x, $y);
     imagedestroy($resource);
 
     $image->setResource($dest_resource);
