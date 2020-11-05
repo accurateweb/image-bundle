@@ -26,10 +26,10 @@ class ImagickFilterFactory implements FilterFactoryInterface
   public function __construct()
   {
     $this->classMap = array(
-      'crop' => CropFilter::class,
-      'resize' => ResizeFilter::class,
-      'convert' => ConvertFilter::class,
-      'scale' => ScaleFilter::class,
+      'crop' => 'Accurateweb\ImagingBundle\Filter\ImageMagick\CropFilter',
+      'resize' => 'Accurateweb\ImagingBundle\Filter\ImageMagick\ResizeFilter',
+      'convert' => 'Accurateweb\ImagingBundle\Filter\ImageMagick\ConvertFilter',
+      'scale' => 'Accurateweb\ImagingBundle\Filter\ImageMagick\ScaleFilter',
     );
   }
 

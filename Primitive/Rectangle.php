@@ -15,9 +15,6 @@ namespace Accurateweb\ImagingBundle\Primitive;
 
 class Rectangle extends Shape
 {
-  /**
-   * @var Size
-   */
   private $size = null;
 
   public function __construct(Point $location = null, Size $size = null)

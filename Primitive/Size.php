@@ -13,17 +13,19 @@
 
 namespace Accurateweb\ImagingBundle\Primitive;
 
+use Accurateweb\ImagingBundle\Image\Image;
+
 class Size
 {
   private $width;
   private $height;
 
-  public function __construct($width = 0, $height = 0)
+  public function __construct ($width = 0, $height = 0)
   {
     $this->setWidth($width);
     $this->setHeight($height);
   }
-  
+
   /**
    * Создает размер из строки/числа, означающего высоту.
    * Ширина вычисляется так, чтобы были сохранены пропорции.
@@ -33,23 +35,23 @@ class Size
    * @return $this - Размер
    * @throws \InvalidArgumentException
    */
-  static public function fromHeight($height, $initialSize)
+  static public function fromHeight ($height, $initialSize)
   {
-    if(!is_string($height) && !is_int($height))
+    if (!is_string($height) && !is_int($height))
     {
       throw new \InvalidArgumentException(sprintf('Invalid parameter height, expected string or int, received "%s"', gettype($height)));
     }
-    
-    if(!$initialSize instanceof Size)
+
+    if (!$initialSize instanceof Size)
     {
       throw new \InvalidArgumentException(sprintf('Invalid parameter initialSize, expected Size, received "%s"', gettype($initialSize)));
     }
-    
-    $newWidth = $initialSize->getWidth() / ($initialSize->getHeight()/$height);
-    
+
+    $newWidth = $initialSize->getWidth() / ($initialSize->getHeight() / $height);
+
     return new Size((int)$newWidth, $height);
   }
-  
+
   /**
    * Создает размер из строки/числа, означающего ширину.
    * Высота вычисляется так, чтобы были сохранены пропорции.
@@ -59,23 +61,23 @@ class Size
    * @return $this - Размер
    * @throws \InvalidArgumentException
    */
-  static public function fromWidth($width, $initialSize)
+  static public function fromWidth ($width, $initialSize)
   {
-    if(!is_string($width) && !is_int($width))
+    if (!is_string($width) && !is_int($width))
     {
       throw new \InvalidArgumentException(sprintf('Invalid parameter width, expected string or int, received "%s"', gettype($width)));
     }
-  
-    if(!$initialSize instanceof Size)
+
+    if (!$initialSize instanceof Size)
     {
       throw new \InvalidArgumentException(sprintf('Invalid parameter initialSize, expected Size, received "%s"', gettype($initialSize)));
     }
-    
-    $newHeight = $initialSize->getHeight() / ($initialSize->getWidth()/(int)$width);
-    
+
+    $newHeight = $initialSize->getHeight() / ($initialSize->getWidth() / (int)$width);
+
     return new Size($width, (int)$newHeight);
   }
-  
+
   /**
    * Создает размер из строки вида %ширина%<разделитель>%высота%.
    *
@@ -90,27 +92,32 @@ class Size
    * @param String $v Строковое представление размера
    * @param String $delimiter Разделитель
    * @return Size             Размер
-   * @throws InvalidArgumentException
+   * @throws \InvalidArgumentException
    */
-  static public function fromString($v, $delimiter = 'x')
+  static public function fromString ($v, $delimiter = 'x')
   {
     $parts = explode($delimiter, $v);
+
     if (count($parts) != 2)
+    {
       throw new \InvalidArgumentException(sprintf('Invalid size string "%s"', $v));
+    }
 
     if (!is_numeric($parts[0]) && !is_numeric($parts[1]))
+    {
       throw new \InvalidArgumentException(sprintf('Size components must be valid numbers'));
-    
+    }
+
     return new Size($parts[0], $parts[1]);
   }
 
   /**
    * Создает размер из экзепляра класса sfImage
    *
-   * @param sfImage $image Изображение
+   * @param Image $image Изображение
    * @return Size Размер указанного изображения
    */
-  static public function fromImage(\Accurateweb\ImagingBundle\Image\Image $image)
+  static public function fromImage (Image $image)
   {
     return new Size($image->getWidth(), $image->getHeight());
   }
@@ -121,32 +128,37 @@ class Size
    * @param Size $size
    * @return Size Возвращает себя для замыкания
    */
-  public function extend(Size $size)
+  public function extend (Size $size)
   {
     if ($this->width == 0)
+    {
       $this->width = $size->getWidth();
+    }
+
     if ($this->height == 0)
+    {
       $this->height = $size->getHeight();
+    }
 
     return $this;
   }
 
-  public function getWidth()
+  public function getWidth ()
   {
     return $this->width;
   }
 
-  public function setWidth($v)
+  public function setWidth ($v)
   {
     $this->width = (int)$v;
   }
 
-  public function getHeight()
+  public function getHeight ()
   {
     return $this->height;
   }
 
-  public function setHeight($v)
+  public function setHeight ($v)
   {
     $this->height = (int)$v;
   }
@@ -156,10 +168,12 @@ class Size
    *
    * @return float|boolean
    */
-  public function getAspectRatio()
+  public function getAspectRatio ()
   {
     if ($this->height == 0 || $this->width == 0)
+    {
       return false;
+    }
 
     return $this->width / $this->height;
   }

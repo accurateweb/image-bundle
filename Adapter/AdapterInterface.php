@@ -17,7 +17,6 @@
 
 namespace Accurateweb\ImagingBundle\Adapter;
 
-
 use Accurateweb\ImagingBundle\Image\Image;
 
 interface AdapterInterface

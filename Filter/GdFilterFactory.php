@@ -10,15 +10,12 @@
  *  как нарушение его авторских прав.
  *   Ответственность за нарушение авторских прав наступает в соответствии с действующим законодательством РФ.
  */
-
 /**
  * @author Denis N. Ragozin <dragozin@accurateweb.ru>
  */
 
 namespace Accurateweb\ImagingBundle\Filter;
 
-use Accurateweb\ImagingBundle\Filter\GD\CropFilter;
-use Accurateweb\ImagingBundle\Filter\GD\ResizeFilter;
 
 class GdFilterFactory implements FilterFactoryInterface
 {
@@ -27,8 +24,8 @@ class GdFilterFactory implements FilterFactoryInterface
   public function __construct()
   {
     $this->classMap = array(
-      'resize' => ResizeFilter::class,
-      'crop' => CropFilter::class
+      'resize' => 'Accurateweb\ImagingBundle\Filter\GD\ResizeFilter',
+      'crop' => 'Accurateweb\ImagingBundle\Filter\GD\CropFilter'
     );
   }
 

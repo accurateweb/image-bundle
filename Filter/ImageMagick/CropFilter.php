@@ -30,6 +30,16 @@ class CropFilter extends AbstractImagickFilter
 
   protected function transform (\Imagick $image)
   {
+    if ($this->options['width'] == 0)
+    {
+      $this->options['width'] = $image->getImageWidth();
+    }
+
+    if ($this->options['height'] == 0)
+    {
+      $this->options['height'] = $image->getImageHeight();
+    }
+
     $image->cropImage(
       $this->options['width'],
       $this->options['height'],

@@ -20,27 +20,27 @@ class Shape
    */
   private $location;
 
-  public function __construct(Point $location)
+  public function __construct (Point $location)
   {
     $this->setLocation($location);
   }
 
-  public function getX()
+  public function getX ()
   {
     return $this->location->getX();
   }
 
-  public function getY()
+  public function getY ()
   {
     return $this->location->getY();
   }
 
-  public function getLocation()
+  public function getLocation ()
   {
     return clone $this->location;
   }
 
-  public function setLocation(Point $location)
+  public function setLocation (Point $location)
   {
     $this->location = clone $location;
   }
