@@ -25,19 +25,9 @@ class Configuration implements ConfigurationInterface
 
     $rootNode
       ->children()
-        ->arrayNode('library')
-          ->children()
-            ->defaultValue([
-                'gd' => [
-                  'aw_imaging.adapter' => 'aw_imaging.adapter.gd',
-                  'aw_imaging.filter.factory' => 'aw_imaging.filter.factory.gd'
-                ],
-                'imagick' => [
-                  'aw_imaging.adapter' => 'aw_imaging.adapter.imagick',
-                  'aw_imaging.filter.factory' => 'aw_imaging.filter.factory.imagick'
-                ]
-              ])
-          ->end()
+        ->enumNode('library')
+            ->values(['gd', 'imagick'])
+            ->isRequired()
         ->end()
       ->end();
 
