@@ -35,7 +35,21 @@ class AccuratewebImagingExtension extends Extension
   {
     $loader = new XmlFileLoader($container, new FileLocator(dirname(__DIR__).'/Resources/config'));
     $loader->load('services.xml');
-    $container->setAlias('aw_imaging.adapter', 'aw_imaging.adapter.gd');
-    $container->setAlias('aw_imaging.filter.factory', 'aw_imaging.filter.factory.gd');
+
+    $library = $configs[0]['library'];
+    $serviceAliasMap = [
+      'gd' => [
+        'aw_imaging.adapter' => 'aw_imaging.adapter.gd',
+        'aw_imaging.filter.factory' => 'aw_imaging.filter.factory.gd'
+      ],
+      'imagick' => [
+        'aw_imaging.adapter' => 'aw_imaging.adapter.imagick',
+        'aw_imaging.filter.factory' => 'aw_imaging.filter.factory.imagick'
+      ]
+    ];
+    foreach ($serviceAliasMap[$library] as $service => $alias)
+    {
+      $container->setAlias($service, $alias);
+    }
   }
 }
